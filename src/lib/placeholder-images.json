@@ -1,0 +1,185 @@
+{
+  "placeholderImages": [
+    {
+  "id": "hero-1",
+  "description": "Hero image 1",
+  "imageUrl": "/images/hero/hero1.png",
+  "imageHint": "waterpark"
+},
+{
+  "id": "hero-2",
+  "description": "Hero image 2",
+  "imageUrl": "/images/hero/hero2.png",
+  "imageHint": "water slide"
+},
+{
+  "id": "hero-3",
+  "description": "Hero image 3",
+  "imageUrl": "/images/hero/hero3.png",
+  "imageHint": "family waterpark"
+},
+{
+  "id": "hero-4",
+  "description": "Hero image 4",
+  "imageUrl": "/images/hero/hero4.png",
+  "imageHint": "pool"
+},
+{
+  "id": "hero-5",
+  "description": "Hero image 5",
+  "imageUrl": "/images/hero/hero5.png",
+  "imageHint": "kids pool"
+},
+{
+  "id": "hero-6",
+  "description": "Hero image 6",
+  "imageUrl": "/images/hero/hero6.png",
+  "imageHint": "waterpark fun"
+},
+    {
+      "id": "attraction-1",
+      "description": "A long and winding spiral water slide.",
+      "imageUrl": "/images/wahana/wahana1.jpeg",
+      "imageHint": "water slide"
+    },
+    {
+      "id": "attraction-2",
+      "description": "People relaxing in a wave pool.",
+      "imageUrl": "/images/wahana/wahana2.jpeg",
+      "imageHint": "wave pool"
+    },
+    {
+      "id": "attraction-3",
+      "description": "A giant tipping bucket splashing water on children.",
+      "imageUrl": "/images/wahana/wahana3.jpeg",
+      "imageHint": "water bucket"
+    },
+    {
+      "id": "attraction-4",
+      "description": "A colorful and safe kids' pool area.",
+      "imageUrl": "/images/wahana/wahana4.jpeg",
+      "imageHint": "kids pool"
+    },
+    {
+      "id": "attraction-5",
+      "description": "People floating on tubes in a lazy river.",
+      "imageUrl": "/images/wahana/wahana5.jpeg",
+      "imageHint": "lazy river"
+    },
+    {
+      "id": "attraction-6",
+      "description": "Excited people in a wave pool as a large wave approaches.",
+      "imageUrl": "/images/wahana/wahana6.png",
+      "imageHint": "wave pool"
+    },
+    {
+      "id": "attraction-7",
+      "description": "A long and winding spiral water slide.",
+      "imageUrl": "/images/wahana/wahana7.png",
+      "imageHint": "water slide"
+    },
+    {
+      "id": "attraction-8",
+      "description": "A long and winding spiral water slide.",
+      "imageUrl": "/images/wahana/wahana8.png",
+      "imageHint": "water slide"
+    },
+    {
+      "id": "attraction-9",
+      "description": "A long and winding spiral water slide.",
+      "imageUrl": "/images/wahana/wahana9.png",
+      "imageHint": "water slide"
+    },
+    {
+      "id": "attraction-10",
+      "description": "A long and winding spiral water slide.",
+      "imageUrl": "/images/wahana/wahana6.png",
+      "imageHint": "water slide"
+    },
+    {
+      "id": "attraction-11",
+      "description": "A long and winding spiral water slide.",
+      "imageUrl": "/images/wahana/wahana7.png",
+      "imageHint": "water slide"
+    },
+    {
+      "id": "attraction-12",
+      "description": "A long and winding spiral water slide.",
+      "imageUrl": "/images/wahana/wahana8.png",
+      "imageHint": "water slide"
+    },
+    {
+      "id": "news-1",
+      "description": "A family smiling and splashing in the water.",
+      "imageUrl": "/images/hero/hero3.png",
+      "imageHint": "family waterpark"
+    },
+    {
+      "id": "news-2",
+      "description": "A DJ playing music by the pool at a waterpark.",
+      "imageUrl": "/images/news/htmfeb.png",
+      "imageHint": "htm"
+    },
+    {
+      "id": "news-3",
+      "description": "Puasa",
+      "imageUrl": "/images/news/puasa.png",
+      "imageHint": "puasa"
+    },
+    {
+      "id": "news-4",
+      "description": "A boat ride attraction inside a theme park.",
+      "imageUrl": "/images/hero/hero5.png",
+      "imageHint": "river cruise"
+    },
+
+    {
+      "id": "candid-1",
+      "description": "A father throwing his son in the air in a pool.",
+      "imageUrl": "/images/candid/candid-1.png",
+      "imageHint": "father son"
+    },
+    {
+      "id": "candid-2",
+      "description": "A girl splashing water with a big smile.",
+      "imageUrl": "/images/candid/candid-2.png",
+      "imageHint": "girl splashing"
+    },
+    {
+      "id": "candid-3",
+      "description": "A couple laughing on a tube in the lazy river.",
+      "imageUrl": "/images/candid/candid-3.png",
+      "imageHint": "couple laughing"
+    },  
+    {
+      "id": "candid-4",
+      "description": "A group of teenagers posing for a photo.",
+      "imageUrl": "/images/candid/candid-4.png",
+      "imageHint": "teenagers friends"
+    },
+    {
+      "id": "candid-5",
+      "description": "A little boy with goggles looking surprised.",
+      "imageUrl": "/images/candid/candid-5.png",
+      "imageHint": "boy surprised"
+    },
+    {
+      "id": "candid-6",
+      "description": "A woman relaxing on a sun lounger by the pool.",
+      "imageUrl": "/images/candid/candid-6.png",
+      "imageHint": "woman relaxing"
+    },
+    {
+      "id": "candid-7",
+      "description": "Two kids racing down parallel slides.",
+      "imageUrl": "/images/candid/candid-7.png",
+      "imageHint": "kids racing"
+    }, 
+    {
+      "id": "logo",
+      "description": "icon sirkus waterplay",
+      "imageUrl": "/images/icon.png",
+      "imageHint": "icon sirkus waterplay"
+    }
+  ]
+}
