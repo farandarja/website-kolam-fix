@@ -85,19 +85,7 @@ const tickets = [
     buttonClass: 'bg-[#29ABE2] hover:bg-[#1E96C8] text-white',
     href: '/beli-tiket',
     cta: 'Pilih Tiket',
-  },
-  {
-    name: 'Paket Keluarga',
-    price: 'Rp 180.000',
-    unit: '/ paket',
-    features: ['Hemat untuk keluarga', 'Akses semua wahana'],
-    extra: 'Anak semua wahana Free',
-    accent: 'from-[#FFE3ED] to-[#FFC9DD]',
-    badgeColor: 'text-primary',
-    buttonClass: 'bg-primary hover:bg-primary/90 text-white',
-    href: '/beli-tiket',
-    cta: 'Pilih Paket',
-  },
+  }
 ];
 
 const bookingSteps = [
@@ -210,18 +198,6 @@ export default function Home() {
                 <Link href="/wahana">Lihat Wahana</Link>
               </Button>
             </div>
-
-            {/* tag Seru! Aman! Nyaman! */}
-            <div className="mt-8 hidden flex-col items-start gap-2 lg:flex">
-              {['Seru!', 'Aman!', 'Nyaman!'].map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-r-full rounded-l-sm bg-primary/90 px-4 py-1 font-accent text-sm font-bold text-white shadow-md"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
           </div>
 
           {/* RIGHT: mascot + rotating hero image */}
@@ -274,11 +250,11 @@ export default function Home() {
             <Star className="h-6 w-6 fill-accent text-accent" />
           </h2>
 
-          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="mx-auto flex max-w-5xl flex-wrap justify-center gap-6">
             {tickets.map((t) => (
               <div
                 key={t.name}
-                className={`flex flex-col rounded-3xl bg-gradient-to-b ${t.accent} p-6 shadow-md`}
+                className={`flex w-full flex-col rounded-3xl bg-gradient-to-b ${t.accent} p-6 shadow-md md:w-[calc(33.333%-1rem)]`}
               >
                 <h3 className={`font-headline text-lg font-extrabold ${t.badgeColor}`}>
                   {t.name}
