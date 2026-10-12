@@ -158,51 +158,45 @@ export default function Home() {
           🎈
         </span>
 
-        <div className="container mx-auto grid grid-cols-1 items-center gap-8 px-4 py-14 md:py-20 lg:grid-cols-2">
+<div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-6 py-12 md:py-16 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12 lg:px-8"> 
           {/* LEFT: copy */}
           <div className="relative z-10 text-center lg:text-left">
             <span className="inline-block rounded-full bg-white/70 px-4 py-1.5 text-sm font-bold text-primary shadow-sm backdrop-blur">
               Selamat Datang di
             </span>
-            <h1 className="font-headline mt-4 text-4xl font-extrabold leading-tight md:text-6xl">
+            <h1 className="font-headline mt-4 text-4xl font-extrabold leading-[1.1] md:text-5xl lg:text-6xl">
               <span className="text-[#132447]">Kolam Renang</span>
               <br />
               <span className="letter-animate">
                 {'SIRKUS'.split('').map((char, i) => (
                   <span key={i} style={{ animationDelay: `${i * 0.08}s` }}>
-                    {char}
-                  </span>
+                      {char}
+                    </span>
                 ))}
+                <span className="text-[#FF4B7D]">WATERPLAY</span>
               </span>
-              <br />
-              <span className="text-[#FF4B7D]">WATERPLAY</span>
             </h1>
-            <p className="font-body mx-auto mt-5 max-w-md text-base font-semibold text-[#132447]/80 md:mx-0 md:text-lg">
-              Tempat bermain air paling seru dengan wahana lengkap dan aman
-              untuk anak-anak! 💙
+            <p className="font-body mx-auto mt-5 max-w-lg text-base font-semibold leading-relaxed text-[#132447]/80 lg:mx-0">
+              Indoor waterpark pertama di Indonesia dibangun tahun 2013 adalah tempat rekreasi yang sangat cocok untuk anak-anak. 
+              Didesain dengan konsep ala pertunjukan sirkus, Waterboom ini juga melindungi anak-anak dari kepanasan dan kehujanan, ada kolam air panas, lantai dari rubber yang safety dan nyaman. 
+              Ada fasilitas sauna dan Mom n Baby Spa membuat Sirkus Waterplay menjadi tempat favorite bagi keluarga
             </p>
-            <div className="mt-7 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
-              <Button
-                asChild
-                size="lg"
-                className="rounded-full bg-primary px-7 font-accent text-base font-bold shadow-lg shadow-primary/30 hover:bg-primary/90"
-              >
-                <Link href="/beli-tiket">Pesan Tiket Sekarang</Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="rounded-full border-2 border-accent bg-accent px-7 font-accent text-base font-bold text-accent-foreground shadow-lg shadow-accent/30 hover:bg-accent/90"
-              >
-                <Link href="/wahana">Lihat Wahana</Link>
-              </Button>
+            <div className="mt-6 flex flex-wrap justify-center gap-2 lg:justify-start">
+              {['♨️ Kolam air panas', '🧖 Sauna & Baby Spa', '🛡️ Lantai rubber aman'].map((c) => (
+                <span
+                  key={c}
+                  className="rounded-full bg-white/80 px-3 py-1.5 text-xs font-bold text-[#132447] shadow-sm md:text-sm"
+                >
+                  {c}
+                </span>
+              ))}
             </div>
           </div>
 
-          {/* RIGHT: mascot + rotating hero image */}
-          <div className="relative mx-auto h-[300px] w-full max-w-md md:h-[420px]">
-            <div className="absolute inset-0 overflow-hidden rounded-[2.5rem] shadow-2xl">
+          {/* RIGHT: hero image */}
+          <div className="relative w-full">
+            <div className="absolute -inset-3 rotate-3 rounded-[2.5rem] bg-white/50" />
+            <div className="relative aspect-[5/4] w-full rotate-1 overflow-hidden rounded-[2rem] border-4 border-white shadow-2xl transition-transform duration-500 hover:rotate-0">
               {heroImage && (
                 <Image
                   src={heroImage.imageUrl}
@@ -212,12 +206,7 @@ export default function Home() {
                   priority
                 />
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
             </div>
-            <span className="absolute -left-4 bottom-2 text-5xl drop-shadow-md">
-              🦆
-            </span>
-            <span className="absolute -top-6 left-10 text-3xl">🏐</span>
           </div>
         </div>
 
@@ -538,7 +527,7 @@ export default function Home() {
             <div className="mb-6 flex items-center justify-between gap-4">
               <h2 className="font-headline flex items-center gap-2 text-xl font-extrabold text-[#132447] md:text-2xl">
                 <Star className="h-5 w-5 fill-accent text-accent" />
-                Galeri Keseruan
+                Galeri Candid
               </h2>
               <Button asChild size="sm" className="rounded-full bg-primary font-accent font-bold hover:bg-primary/90">
                 <Link href="/candid">Lihat Semua Galeri</Link>
