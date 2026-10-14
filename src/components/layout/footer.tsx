@@ -30,7 +30,7 @@ export function Footer() {
               <span className="text-xl font-bold font-headline text-white">Sirkus Waterplay</span>
             </Link>
             <p className="text-sm text-slate-400">
-              Destinasi wisata air terbaik untuk keseruan tak terlupakan bersama keluarga. Indoor Waterpark, ngga keujanan ngga kepanasan, ada kolam air hangat, sauna, gym gratis, bisa pijat refleksi, baby spa dan salon muslimah, kedai kopi juga ada.
+              Destinasi wisata air terbaik untuk keseruan tak terlupakan bersama keluarga. Indoor Waterpark, ngga keujanan ngga kepanasan, ada kolam air hangat, sauna, bisa pijat refleksi, baby spa dan salon muslimah, kedai kopi juga ada.
             </p>
           </div>
           <div>

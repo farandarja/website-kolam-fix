@@ -105,23 +105,19 @@ const paymentMethods = [
 ];
 
 const facilitiesPreview = [
-  { name: 'Area Bermain Anak', icon: <Tent className="h-7 w-7" /> },
-  { name: 'Kamar Bilas', icon: <ShowerHead className="h-7 w-7" /> },
-  { name: 'Loker', icon: <Lock className="h-7 w-7" /> },
-  { name: 'Food Court', icon: <UtensilsCrossed className="h-7 w-7" /> },
-  { name: 'Area Parkir', icon: <Car className="h-7 w-7" /> },
+  { name: 'Area Bermain Anak', icon: <Tent className="h-10 w-10 md:h-12 md:w-12" /> },
+  { name: 'Kamar Bilas', icon: <ShowerHead className="h-10 w-10 md:h-12 md:w-12" /> },
+  { name: 'Loker', icon: <Lock className="h-10 w-10 md:h-12 md:w-12" /> },
+  { name: 'Food Court', icon: <UtensilsCrossed className="h-10 w-10 md:h-12 md:w-12" /> },
+  { name: 'Area Parkir', icon: <Car className="h-10 w-10 md:h-12 md:w-12" /> },
 ];
 
-const galleryPreview = [
-  { id: 'galeri-1', src: '/images/galeri/kolam1.png' },
-  { id: 'galeri-2', src: '/images/galeri/kolam2.png' },
-  { id: 'galeri-3', src: '/images/galeri/kolam3.png' },
-];
 
 export default function Home() {
   const heroImages = PlaceHolderImages.filter((img) => img.id.startsWith('hero'));
   const [currentIndex, setCurrentIndex] = useState(0);
   const swiperRef = useRef<SwiperType | null>(null);
+  const candidSwiperRef = useRef<SwiperType | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -133,6 +129,10 @@ export default function Home() {
   const heroImage = heroImages[currentIndex];
   const featuredAttractions = attractions.slice(0, 8);
   const latestNews = news.slice(0, 2);
+
+  const candidPreview = PlaceHolderImages.filter((img) =>
+    img.id.startsWith('candid-')
+  ).slice(0, 8);
 
   return (
     <div className="flex flex-col overflow-x-clip">
@@ -263,12 +263,6 @@ export default function Home() {
                       {f}
                     </li>
                   ))}
-                  {t.extra && (
-                    <li className="flex items-center gap-2 text-sm font-bold text-primary">
-                      <Sparkles className="h-4 w-4 shrink-0" />
-                      {t.extra}
-                    </li>
-                  )}
                 </ul>
                 <Button asChild className={`mt-6 w-full rounded-full font-accent font-bold ${t.buttonClass}`}>
                   <Link href={t.href}>{t.cta}</Link>
@@ -496,55 +490,108 @@ export default function Home() {
 
       <WaveDivider bg="hsl(var(--background))" wave="hsl(var(--secondary))" />
 
-      {/* ================= FASILITAS + GALERI ================= */}
+        {/* ================= FASILITAS ================= */}
       <section className="bg-secondary/60 py-14 md:py-20">
-        <div className="container mx-auto grid grid-cols-1 gap-10 px-4 lg:grid-cols-2">
-          {/* Fasilitas */}
-          <div>
-            <h2 className="font-headline mb-6 flex items-center gap-2 text-xl font-extrabold text-[#132447] md:text-2xl">
-              <Star className="h-5 w-5 fill-accent text-accent" />
-              Fasilitas Kami
-            </h2>
-            <div className="grid grid-cols-3 gap-4 sm:grid-cols-5">
-              {facilitiesPreview.map((f) => (
-                <div key={f.name} className="flex flex-col items-center gap-2 text-center">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white text-primary shadow-md">
-                    {f.icon}
-                  </div>
-                  <p className="text-xs font-semibold text-[#132447]">{f.name}</p>
+        <div className="container mx-auto px-4">
+          <h2 className="font-headline mb-10 flex items-center justify-center gap-3 text-center text-2xl font-extrabold text-[#132447] md:text-3xl">
+            <Star className="h-6 w-6 fill-accent text-accent" />
+            Fasilitas Kami
+            <Star className="h-6 w-6 fill-accent text-accent" />
+          </h2>
+
+          <div className="mx-auto grid max-w-5xl grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
+            {facilitiesPreview.map((f) => (
+              <div key={f.name} className="group flex flex-col items-center gap-4 text-center">
+                <div className="flex h-24 w-24 items-center justify-center rounded-full bg-white text-primary shadow-lg transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl md:h-28 md:w-28">
+                  {f.icon}
                 </div>
-              ))}
-            </div>
-            <div className="mt-6 text-center sm:text-left">
-              <Button asChild className="rounded-full bg-primary font-accent font-bold hover:bg-primary/90">
-                <Link href="/fasilitas">Selengkapnya</Link>
-              </Button>
-            </div>
+                <p className="text-sm font-bold text-[#132447] md:text-base">{f.name}</p>
+              </div>
+            ))}
           </div>
 
-          {/* Galeri */}
-          <div>
-            <div className="mb-6 flex items-center justify-between gap-4">
-              <h2 className="font-headline flex items-center gap-2 text-xl font-extrabold text-[#132447] md:text-2xl">
-                <Star className="h-5 w-5 fill-accent text-accent" />
-                Galeri Candid
-              </h2>
-              <Button asChild size="sm" className="rounded-full bg-primary font-accent font-bold hover:bg-primary/90">
-                <Link href="/candid">Lihat Semua Galeri</Link>
-              </Button>
-            </div>
-            <div className="grid grid-cols-3 gap-3">
-              {galleryPreview.map((g) => (
-                <div key={g.id} className="relative aspect-square overflow-hidden rounded-2xl shadow-md">
-                  <Image src={g.src} alt="Galeri Sirkus Waterplay" fill className="object-cover" />
-                </div>
-              ))}
-            </div>
+          <div className="mt-10 text-center">
+            <Button asChild className="rounded-full bg-primary font-accent font-bold hover:bg-primary/90">
+              <Link href="/fasilitas">Selengkapnya</Link>
+            </Button>
           </div>
         </div>
       </section>
 
       <WaveDivider bg="hsl(var(--secondary))" wave="hsl(var(--background))" flip />
+
+      {/* ================= GALERI CANDID ================= */}
+      <section className="bg-background pt-14 md:pt-20">
+        <div className="container mx-auto px-4">
+          <div className="mb-8 flex items-center justify-between gap-4">
+            <h2 className="font-headline flex items-center gap-2 text-2xl font-extrabold text-[#132447] md:text-3xl">
+              <Star className="h-6 w-6 fill-accent text-accent" />
+              Galeri Candid
+            </h2>
+            <Button asChild className="hidden rounded-full bg-primary font-accent font-bold hover:bg-primary/90 sm:inline-flex">
+              <Link href="/candid">Lihat Semua Galeri</Link>
+            </Button>
+          </div>
+
+          <div className="relative">
+            <Swiper
+              modules={[Autoplay, Pagination]}
+              onSwiper={(sw) => (candidSwiperRef.current = sw)}
+              spaceBetween={16}
+              slidesPerView={1}
+              breakpoints={{
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 4 },
+              }}
+              loop
+              loopAdditionalSlides={4}
+              autoplay={{ delay: 4000, disableOnInteraction: false }}
+              pagination={{ clickable: true, el: '.candid-pagination' }}
+              className="!pb-2"
+            >
+              {candidPreview.map((img) => (
+                <SwiperSlide key={img.id}>
+                  <Link
+                    href="/candid"
+                    className="group relative block aspect-[4/3] overflow-hidden rounded-3xl bg-white/60 shadow-md transition-shadow hover:shadow-xl"
+                  >
+                    <Image
+                      src={img.imageUrl}
+                      alt={img.description}
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </Link>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
+            <button
+              aria-label="Sebelumnya"
+              onClick={() => candidSwiperRef.current?.slidePrev()}
+              className="absolute -left-3 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-white shadow-lg transition-transform hover:scale-110 md:flex"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              aria-label="Selanjutnya"
+              onClick={() => candidSwiperRef.current?.slideNext()}
+              className="absolute -right-3 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-white shadow-lg transition-transform hover:scale-110 md:flex"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
+
+          <div className="candid-pagination mt-4 flex justify-center gap-1.5 [&_.swiper-pagination-bullet]:h-2 [&_.swiper-pagination-bullet]:w-2 [&_.swiper-pagination-bullet]:rounded-full [&_.swiper-pagination-bullet]:bg-primary/30 [&_.swiper-pagination-bullet-active]:bg-primary" />
+
+          <div className="mt-6 text-center sm:hidden">
+            <Button asChild className="rounded-full bg-primary font-accent font-bold hover:bg-primary/90">
+              <Link href="/candid">Lihat Semua Galeri</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
 
       {/* ================= PROMO & INFO ================= */}
       <section className="bg-background py-14 md:py-20">
