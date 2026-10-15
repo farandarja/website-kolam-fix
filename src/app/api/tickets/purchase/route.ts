@@ -1,10 +1,10 @@
 import { z } from "zod";
 import { randomBytes } from "crypto";
 import pool from "@/lib/db";
+import { DATE_ONLY_REGEX, getTicketTier, todayInJakarta } from "@/lib/ticket-pricing";
 
 const PurchaseSchema = z.object({
-  ticketType: z.enum(["Weekdays", "Weekends"]),
-  visitDate: z.string().min(1),
+  visitDate: z.string().regex(DATE_ONLY_REGEX, "Format tanggal harus YYYY-MM-DD"),
   name: z.string().min(2),
   email: z.string().email(),
   phone: z.string().min(10),
@@ -12,15 +12,6 @@ const PurchaseSchema = z.object({
 
 function makeOrderCode() {
   return "WP" + randomBytes(5).toString("hex").toUpperCase();
-}
-
-function toDateOnlyString(iso: string) {
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) throw new Error("visitDate tidak valid");
-  const yyyy = d.getFullYear();
-  const mm = String(d.getMonth() + 1).padStart(2, "0");
-  const dd = String(d.getDate()).padStart(2, "0");
-  return `${yyyy}-${mm}-${dd}`;
 }
 
 export async function POST(req: Request) {
@@ -31,19 +22,35 @@ export async function POST(req: Request) {
       return Response.json({ error: "Validasi gagal", details: parsed.error.flatten() }, { status: 400 });
     }
 
-    const { ticketType, visitDate, name, email, phone } = parsed.data;
+    const { visitDate, name, email, phone } = parsed.data;
 
-    // ambil harga ticket dari DB
+    // tarif ditentukan SERVER dari tanggal (client tidak bisa menentukan harga)
+    let tier;
+    try {
+      tier = getTicketTier(visitDate);
+    } catch {
+      return Response.json({ error: "Tanggal kunjungan tidak valid" }, { status: 400 });
+    }
+    if (visitDate < todayInJakarta()) {
+      return Response.json({ error: "Tanggal kunjungan tidak boleh di masa lalu" }, { status: 400 });
+    }
+
+    // ambil baris jenis tiket dari DB (untuk relasi order_items)
     const [rows] = await pool.query(
-      "SELECT id, code, name, price FROM ticket_types WHERE code = ? LIMIT 1",
-      [ticketType]
+      "SELECT id, code, name FROM ticket_types WHERE code = ? LIMIT 1",
+      [tier.code]
     );
     const ticket = Array.isArray(rows) ? (rows[0] as any) : null;
-    if (!ticket) return Response.json({ error: "Jenis tiket tidak ditemukan" }, { status: 404 });
+    if (!ticket) {
+      return Response.json(
+        { error: `Jenis tiket "${tier.code}" belum ada di database. Jalankan migration_harga_tiket.sql.` },
+        { status: 500 }
+      );
+    }
 
     const orderCode = makeOrderCode();
-    const visitDateOnly = toDateOnlyString(visitDate);
-    const totalAmount = Number(ticket.price);
+    const visitDateOnly = visitDate;
+    const totalAmount = tier.price;
 
     const conn = await pool.getConnection();
     try {

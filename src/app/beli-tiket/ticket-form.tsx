@@ -9,6 +9,7 @@ import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { useState } from "react";
 
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -19,16 +20,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import { formatRupiah, getTicketTier } from "@/lib/ticket-pricing";
 
 const formSchema = z.object({
-  ticketType: z.enum(["Weekdays", "Weekends"], {
-    required_error: "Anda harus memilih tipe tiket.",
-  }),
   visitDate: z.date({
     required_error: "Tanggal kunjungan harus diisi.",
   }),
@@ -53,14 +51,17 @@ export function TicketForm() {
     },
   });
 
+  // harga otomatis mengikuti tanggal kunjungan
+  const visitDate = form.watch("visitDate");
+  const tier = visitDate ? getTicketTier(format(visitDate, "yyyy-MM-dd")) : null;
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const res = await fetch("/api/tickets/purchase", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ticketType: values.ticketType,
-          visitDate: values.visitDate.toISOString(),
+          visitDate: format(values.visitDate, "yyyy-MM-dd"),
           name: values.name,
           email: values.email,
           phone: values.phone,
@@ -96,38 +97,6 @@ export function TicketForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="ticketType"
-          render={({ field }) => (
-            <FormItem className="space-y-3">
-              <FormLabel>Pilih Jenis Tiket</FormLabel>
-              <FormControl>
-                <RadioGroup
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                  className="flex flex-col space-y-2"
-                >
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="Weekdays" />
-                    </FormControl>
-                    <FormLabel className="font-normal">HTM Weekdays (Rp 30.000)</FormLabel>
-                  </FormItem>
-
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="Weekends" />
-                    </FormControl>
-                    <FormLabel className="font-normal">HTM Weekends (Rp 40.000)</FormLabel>
-                  </FormItem> 
-                </RadioGroup>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
         <FormField
           control={form.control}
           name="visitDate"
@@ -180,6 +149,18 @@ export function TicketForm() {
             </FormItem>
           )}
         />
+
+        {tier && visitDate && (
+          <div className="flex items-center justify-between gap-4 rounded-2xl bg-secondary px-4 py-3">
+            <div>
+              <p className="text-xs text-muted-foreground">Harga tiket ({tier.days})</p>
+              <p className="text-sm font-semibold">
+                {format(visitDate, "EEEE, d MMMM yyyy", { locale: id })}
+              </p>
+            </div>
+            <p className="text-xl font-extrabold text-primary">{formatRupiah(tier.price)}</p>
+          </div>
+        )}
 
         <div className="space-y-4">
           <FormField
@@ -240,7 +221,11 @@ export function TicketForm() {
           className="w-full"
           disabled={form.formState.isSubmitting}
         >
-          {form.formState.isSubmitting ? "Memproses..." : "Bayar Sekarang"}
+          {form.formState.isSubmitting
+            ? "Memproses..."
+            : tier
+              ? `Bayar Sekarang • ${formatRupiah(tier.price)}`
+              : "Bayar Sekarang"}
         </Button>
       </form>
     </Form>

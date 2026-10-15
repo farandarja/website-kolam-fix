@@ -1,5 +1,6 @@
 import { TicketForm } from "./ticket-form";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { TICKET_TIERS, formatRupiah } from "@/lib/ticket-pricing";
 
 export default function BeliTiketPage() {
   return (
@@ -18,15 +19,14 @@ export default function BeliTiketPage() {
                 <CardTitle>Harga Tiket Masuk</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="font-medium">Weekdays (Senin-Kamis)</span>
-                  <span className="font-bold text-primary">Rp 30.000</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="font-medium">Weekends (Jumat-Minggu)</span>
-                  <span className="font-bold text-primary">Rp 40.000</span>
-                </div> 
-                 <p className="text-xs text-muted-foreground pt-4">*Harga tiket weekends berlaku untuk kunjungan hari libur sekolah/libur nasional.
+                {Object.values(TICKET_TIERS).map((t) => (
+                  <div key={t.code} className="flex justify-between items-center">
+                    <span className="font-medium">{t.listLabel}</span>
+                    <span className="font-bold text-primary">{formatRupiah(t.price)}</span>
+                  </div>
+                ))}
+                 <p className="text-xs text-muted-foreground pt-4">*Harga otomatis menyesuaikan tanggal kunjungan yang dipilih.
+                 <br />*Harga tiket weekends berlaku untuk kunjungan hari libur sekolah/libur nasional.
                  <br />*Harga tiket berlaku untuk semua umur.</p>
               </CardContent>
             </Card>
@@ -35,7 +35,7 @@ export default function BeliTiketPage() {
              <Card className="shadow-2xl">
               <CardHeader>
                 <CardTitle>Pesan Tiket Anda</CardTitle>
-                <CardDescription>Isi formulir di bawah ini untuk melanjutkan.</CardDescription>
+                <CardDescription>Pilih tanggal kunjungan, harga akan menyesuaikan otomatis.</CardDescription>
               </CardHeader>
               <CardContent>
                 <TicketForm />
