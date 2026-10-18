@@ -4,6 +4,7 @@
  */
 
 export type TicketTierCode = "Weekdays" | "Jumat" | "Weekends";
+export const MAX_GUESTS = 50;
 
 export type TicketTier = {
   code: TicketTierCode; // harus sama dengan kolom `code` di tabel ticket_types

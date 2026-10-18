@@ -14,15 +14,9 @@ import {
   PartyPopper,
   Sparkles,
   Star,
-  Clock,
-  MapPin,
-  Instagram,
-  Facebook,
-  Youtube,
   ChevronLeft,
   ChevronRight,
   CalendarDays,
-  Ticket,
   ClipboardList,
   CreditCard,
   BadgeCheck,
@@ -35,10 +29,10 @@ import {
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import { TikTokIcon } from '@/components/icons/tiktok-icon';
 import { attractions, news } from '@/lib/data';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { WaveDivider } from '@/components/layout/wave-divider';
+import { TICKET_TIERS, formatRupiah } from '@/lib/ticket-pricing';
 
 const trustBadges = [
   {
@@ -63,45 +57,37 @@ const trustBadges = [
   },
 ];
 
-const tickets = [
+const bookingSteps = [
   {
-    name: 'Tiket Anak',
-    price: 'Rp 40.000',
-    unit: '/ orang',
-    features: ['Tinggi maks. 120 cm', 'Akses semua wahana anak'],
-    accent: 'from-[#FFF3D6] to-[#FFE1A8]',
-    badgeColor: 'text-[#E68A00]',
-    buttonClass: 'bg-[#FFA726] hover:bg-[#FB8C00] text-white',
-    href: '/beli-tiket',
-    cta: 'Pilih Tiket',
+    icon: <CalendarDays className="h-6 w-6" />,
+    title: 'Pilih Tanggal',
+    desc: 'Pilih tanggal kunjungan, harga menyesuaikan hari secara otomatis.',
   },
   {
-    name: 'Tiket Dewasa',
-    price: 'Rp 60.000',
-    unit: '/ orang',
-    features: ['Di atas 120 cm', 'Akses semua wahana'],
-    accent: 'from-[#DCF1FF] to-[#BEE6FF]',
-    badgeColor: 'text-[#0B84D6]',
-    buttonClass: 'bg-[#29ABE2] hover:bg-[#1E96C8] text-white',
-    href: '/beli-tiket',
-    cta: 'Pilih Tiket',
-  }
+    icon: <ClipboardList className="h-6 w-6" />,
+    title: 'Isi Data',
+    desc: 'Tentukan jumlah tamu, lalu isi nama, email, dan nomor telepon.',
+  },
+  {
+    icon: <CreditCard className="h-6 w-6" />,
+    title: 'Bayar',
+    desc: 'Selesaikan pembayaran dengan metode yang tersedia.',
+  },
+  {
+    icon: <BadgeCheck className="h-6 w-6" />,
+    title: 'Terima E-Tiket',
+    desc: 'Tunjukkan QR e-tiket di pintu masuk, tanpa antre di loket.',
+  },
 ];
 
-const bookingSteps = [
-  { icon: <CalendarDays className="h-6 w-6" />, label: 'Pilih Tanggal' },
-  { icon: <Ticket className="h-6 w-6" />, label: 'Pilih Tiket' },
-  { icon: <ClipboardList className="h-6 w-6" />, label: 'Isi Data' },
-  { icon: <CreditCard className="h-6 w-6" />, label: 'Pembayaran' },
-  { icon: <BadgeCheck className="h-6 w-6" />, label: 'E-Tiket' },
-];
-
-const paymentMethods = [
-  { label: 'BRI', className: 'bg-[#00529C] text-white' },
-  { label: 'OVO', className: 'bg-[#4C2A86] text-white' },
-  { label: 'DANA', className: 'bg-[#118EEA] text-white' },
-  { label: 'gopay', className: 'bg-[#00AED6] text-white' },
-  { label: 'ShopeePay', className: 'bg-[#EE4D2D] text-white' },
+// Taruh file logo di public/images/payment/ dengan nama sesuai `src` di bawah.
+// Kalau file belum ada, otomatis tampil teks nama sebagai pengganti.
+const paymentLogos = [
+  { name: 'BRI', src: '/images/payment/bri.png' },
+  { name: 'OVO', src: '/images/payment/ovo.png' },
+  { name: 'DANA', src: '/images/payment/dana.png' },
+  { name: 'GoPay', src: '/images/payment/gopay.png' },
+  { name: 'ShopeePay', src: '/images/payment/shopeepay.png' },
 ];
 
 const facilitiesPreview = [
@@ -112,6 +98,25 @@ const facilitiesPreview = [
   { name: 'Area Parkir', icon: <Car className="h-10 w-10 md:h-12 md:w-12" /> },
 ];
 
+function PaymentLogo({ name, src }: { name: string; src: string }) {
+  const [failed, setFailed] = useState(false);
+  return (
+    <div className="flex h-14 w-24 items-center justify-center rounded-xl border border-[#132447]/10 bg-white px-3 shadow-sm">
+      {failed ? (
+        <span className="text-xs font-bold text-[#132447]/60">{name}</span>
+      ) : (
+        <Image
+          src={src}
+          alt={`Logo ${name}`}
+          width={80}
+          height={32}
+          className="h-8 w-auto max-w-full object-contain"
+          onError={() => setFailed(true)}
+        />
+      )}
+    </div>
+  );
+}
 
 export default function Home() {
   const heroImages = PlaceHolderImages.filter((img) => img.id.startsWith('hero'));
@@ -158,7 +163,7 @@ export default function Home() {
           🎈
         </span>
 
-<div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-6 py-12 md:py-16 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12 lg:px-8"> 
+        <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-6 py-12 md:py-16 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12 lg:px-8">
           {/* LEFT: copy */}
           <div className="relative z-10 text-center lg:text-left">
             <span className="inline-block rounded-full bg-white/70 px-4 py-1.5 text-sm font-bold text-primary shadow-sm backdrop-blur">
@@ -170,8 +175,8 @@ export default function Home() {
               <span className="letter-animate">
                 {'SIRKUS'.split('').map((char, i) => (
                   <span key={i} style={{ animationDelay: `${i * 0.08}s` }}>
-                      {char}
-                    </span>
+                    {char}
+                  </span>
                 ))}
                 <span className="text-[#FF4B7D]">WATERPLAY</span>
               </span>
@@ -230,176 +235,96 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= PILIHAN TIKET ================= */}
-      <section className="bg-background pb-16 pt-14 md:pt-24 lg:pt-20">
-        <div className="container mx-auto px-4">
-          <h2 className="font-headline mb-10 flex items-center justify-center gap-3 text-center text-2xl font-extrabold text-[#132447] md:text-3xl">
-            <Star className="h-6 w-6 fill-accent text-accent" />
-            Pilihan Tiket
-            <Star className="h-6 w-6 fill-accent text-accent" />
-          </h2>
+            {/* ================= HARGA TIKET & CARA PESAN ================= */}
+      <section className="border-y border-[#132447]/5 bg-white py-14 md:py-20">
+        <div className="mx-auto max-w-5xl px-4">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+            {/* KIRI: harga */}
+            <div>
+              <h2 className="font-headline flex items-center gap-2 text-2xl font-extrabold text-[#132447] md:text-3xl">
+                <Star className="h-6 w-6 fill-accent text-accent" />
+                Harga Tiket
+              </h2>
+              <p className="mt-2 text-sm font-semibold text-muted-foreground">
+                Harga menyesuaikan hari kunjungan dan berlaku untuk semua umur.
+              </p>
 
-          <div className="mx-auto flex max-w-5xl flex-wrap justify-center gap-6">
-            {tickets.map((t) => (
-              <div
-                key={t.name}
-                className={`flex w-full flex-col rounded-3xl bg-gradient-to-b ${t.accent} p-6 shadow-md md:w-[calc(33.333%-1rem)]`}
-              >
-                <h3 className={`font-headline text-lg font-extrabold ${t.badgeColor}`}>
-                  {t.name}
-                </h3>
-                <p className="mt-3 flex items-baseline gap-1">
-                  <span className="text-3xl font-extrabold text-[#132447]">
-                    {t.price}
-                  </span>
-                  <span className="text-sm font-semibold text-[#132447]/70">
-                    {t.unit}
-                  </span>
-                </p>
-                <ul className="mt-4 flex-1 space-y-2">
-                  {t.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2 text-sm font-semibold text-[#132447]/80">
-                      <BadgeCheck className="h-4 w-4 shrink-0 text-emerald-600" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <Button asChild className={`mt-6 w-full rounded-full font-accent font-bold ${t.buttonClass}`}>
-                  <Link href={t.href}>{t.cta}</Link>
-                </Button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ================= BOOKING ONLINE + INFO ================= */}
-      <section className="bg-secondary/60 py-14 md:py-20">
-        <div className="container mx-auto grid grid-cols-1 gap-6 px-4 lg:grid-cols-5">
-          {/* Booking card */}
-          <div className="rounded-3xl bg-white p-6 shadow-lg md:p-8 lg:col-span-3">
-            <h3 className="font-headline flex items-center gap-2 text-xl font-extrabold text-[#132447] md:text-2xl">
-              <Star className="h-5 w-5 fill-accent text-accent" />
-              Booking Tiket Online
-              <Star className="h-5 w-5 fill-accent text-accent" />
-            </h3>
-            <p className="mt-1 text-sm font-semibold text-muted-foreground">
-              Mudah, cepat, dan praktis!
-            </p>
-
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-2 gap-y-6">
-              {bookingSteps.map((step, i) => (
-                <div key={step.label} className="flex items-center">
-                  <div className="flex flex-col items-center gap-2 text-center">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary text-primary shadow-sm">
-                      {step.icon}
+              <div className="mt-6 space-y-3">
+                {Object.values(TICKET_TIERS).map((t) => (
+                  <div
+                    key={t.code}
+                    className="flex items-center justify-between gap-4 rounded-2xl border border-[#132447]/5 bg-background px-5 py-4"
+                  >
+                    <div>
+                      <p className="font-accent text-base font-bold text-[#132447]">{t.code}</p>
+                      <p className="text-sm font-semibold text-muted-foreground">{t.days}</p>
                     </div>
-                    <p className="w-20 text-xs font-bold text-[#132447]">
-                      {step.label}
+                    <p className="text-right">
+                      <span className="text-2xl font-extrabold text-primary">
+                        {formatRupiah(t.price)}
+                      </span>
+                      <span className="ml-1 text-sm font-semibold text-muted-foreground">/ orang</span>
                     </p>
                   </div>
-                  {i < bookingSteps.length - 1 && (
-                    <ArrowRight className="mx-2 h-5 w-5 shrink-0 text-accent" />
-                  )}
-                </div>
-              ))}
-            </div>
-
-            <Button
-              asChild
-              size="lg"
-              className="mt-8 w-full rounded-full bg-[#29ABE2] font-accent text-base font-bold text-white shadow-lg shadow-[#29ABE2]/30 hover:bg-[#1E96C8]"
-            >
-              <Link href="/beli-tiket">🎟️ Booking Sekarang</Link>
-            </Button>
-
-            <div className="mt-8">
-              <p className="mb-3 text-center text-sm font-bold text-[#132447]">
-                Pembayaran Aman
-              </p>
-              <div className="flex flex-wrap items-center justify-center gap-3">
-                {paymentMethods.map((p) => (
-                  <span
-                    key={p.label}
-                    className={`rounded-lg px-4 py-1.5 text-xs font-bold shadow-sm ${p.className}`}
-                  >
-                    {p.label}
-                  </span>
                 ))}
               </div>
+              <p className="mt-3 text-xs text-muted-foreground">
+                *Tarif Weekends juga berlaku pada hari libur nasional dan libur sekolah.
+              </p>
+            </div>
+
+            {/* KANAN: cara pesan */}
+            <div>
+              <h2 className="font-headline flex items-center gap-2 text-2xl font-extrabold text-[#132447] md:text-3xl">
+                <Star className="h-6 w-6 fill-accent text-accent" />
+                Cara Pesan Tiket
+              </h2>
+              <p className="mt-2 text-sm font-semibold text-muted-foreground">
+                Empat langkah mudah, tanpa antre di loket.
+              </p>
+
+              <ol className="mt-6">
+                {bookingSteps.map((step, i) => (
+                  <li key={step.title} className="relative flex gap-5 pb-8 last:pb-0">
+                    {i < bookingSteps.length - 1 && (
+                      <span
+                        aria-hidden="true"
+                        className="absolute left-5 top-11 h-[calc(100%-2.75rem)] w-0.5 bg-primary/20"
+                      />
+                    )}
+                    <span className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary font-accent text-base font-bold text-white ring-4 ring-white">
+                      {i + 1}
+                    </span>
+                    <div className="pt-1.5">
+                      <h3 className="flex items-center gap-2 font-accent text-base font-bold text-[#132447]">
+                        <span className="text-primary [&>svg]:h-4 [&>svg]:w-4">{step.icon}</span>
+                        {step.title}
+                      </h3>
+                      <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                        {step.desc}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+
+              <Button
+                asChild
+                size="lg"
+                className="mt-8 rounded-full bg-primary px-8 font-accent text-base font-bold shadow-lg shadow-primary/30 hover:bg-primary/90"
+              >
+                <Link href="/beli-tiket">Pesan Tiket Sekarang</Link>
+              </Button>
             </div>
           </div>
 
-          {/* Info column */}
-          <div className="flex flex-col gap-6 lg:col-span-2">
-            <div className="rounded-3xl bg-white p-6 shadow-lg">
-              <h4 className="flex items-center gap-2 font-accent text-base font-bold text-[#132447]">
-                <Clock className="h-5 w-5 text-primary" />
-                Jam Operasional
-              </h4>
-              <p className="mt-2 text-sm font-semibold text-muted-foreground">
-                Senin - Jumat
-                <br />
-                09.00 - 17.00
-                <br />
-                Sabtu - Minggu & Hari Libur
-                <br />
-                08.00 - 18.00
-              </p>
-            </div>
-
-            <div className="rounded-3xl bg-white p-6 shadow-lg">
-              <h4 className="flex items-center gap-2 font-accent text-base font-bold text-[#132447]">
-                <MapPin className="h-5 w-5 text-primary" />
-                Lokasi Kami
-              </h4>
-              <p className="mt-2 text-sm font-semibold text-muted-foreground">
-                Jl. Wibawa Mukti II No.4, RT.001/RW.5,
-                <br />
-                Jatiasih, Kota Bekasi, Jawa Barat 17423
-              </p>
-              <a
-                href="https://maps.app.goo.gl/YUb3HGWaUmKqd5x87"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-primary hover:underline"
-              >
-                Lihat di Maps <MapPin className="h-4 w-4" />
-              </a>
-            </div>
-
-            <div className="flex items-center gap-4 rounded-3xl bg-white p-6 shadow-lg">
-              <div className="relative h-16 w-16 shrink-0">
-                <Image
-                  src="/images/mascot/badut.png"
-                  alt="Maskot Sirkus Waterplay"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-[#132447]">
-                  Ikuti media sosial kami untuk info promo dan acara seru lainnya!
-                </p>
-                <div className="mt-2 flex gap-2">
-                  {[
-                    { icon: <Instagram className="h-4 w-4" />, href: 'https://instagram.com/sirkuswaterplay' },
-                    { icon: <Facebook className="h-4 w-4" />, href: '#' },
-                    { icon: <TikTokIcon className="h-4 w-4" />, href: 'https://www.tiktok.com/@sirkuswaterplayjatiasih' },
-                    { icon: <Youtube className="h-4 w-4" />, href: '#' },
-                  ].map((s, i) => (
-                    <a
-                      key={i}
-                      href={s.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary text-primary transition-colors hover:bg-primary hover:text-white"
-                    >
-                      {s.icon}
-                    </a>
-                  ))}
-                </div>
-              </div>
+          {/* METODE PEMBAYARAN: satu baris, di tengah */}
+          <div className="mt-14 border-t border-[#132447]/5 pt-8 text-center">
+            <p className="text-sm font-bold text-[#132447]">Metode Pembayaran</p>
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-3 md:flex-nowrap md:gap-4">
+              {paymentLogos.map((p) => (
+                <PaymentLogo key={p.name} name={p.name} src={p.src} />
+              ))}
             </div>
           </div>
         </div>
@@ -488,10 +413,10 @@ export default function Home() {
         </div>
       </section>
 
-      <WaveDivider bg="hsl(var(--background))" wave="hsl(var(--secondary))" />
+      <WaveDivider bg="hsl(var(--background))" wave="#CDEBFF" />
 
-        {/* ================= FASILITAS ================= */}
-      <section className="bg-secondary/60 py-14 md:py-20">
+      {/* ================= FASILITAS ================= */}
+      <section className="bg-[#FDDDE8] py-14 md:py-20">
         <div className="container mx-auto px-4">
           <h2 className="font-headline mb-10 flex items-center justify-center gap-3 text-center text-2xl font-extrabold text-[#132447] md:text-3xl">
             <Star className="h-6 w-6 fill-accent text-accent" />
@@ -518,7 +443,7 @@ export default function Home() {
         </div>
       </section>
 
-      <WaveDivider bg="hsl(var(--secondary))" wave="hsl(var(--background))" flip />
+      <WaveDivider bg="#CDEBFF" wave="hsl(var(--background))" flip />
 
       {/* ================= GALERI CANDID ================= */}
       <section className="bg-background pt-14 md:pt-20">

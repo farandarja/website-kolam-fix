@@ -1,10 +1,11 @@
 import { z } from "zod";
 import { randomBytes } from "crypto";
 import pool from "@/lib/db";
-import { DATE_ONLY_REGEX, getTicketTier, todayInJakarta } from "@/lib/ticket-pricing";
+import { DATE_ONLY_REGEX, getTicketTier, todayInJakarta, MAX_GUESTS } from "@/lib/ticket-pricing";
 
 const PurchaseSchema = z.object({
   visitDate: z.string().regex(DATE_ONLY_REGEX, "Format tanggal harus YYYY-MM-DD"),
+  guests: z.number().int().min(1).max(MAX_GUESTS),
   name: z.string().min(2),
   email: z.string().email(),
   phone: z.string().min(10),
@@ -22,7 +23,7 @@ export async function POST(req: Request) {
       return Response.json({ error: "Validasi gagal", details: parsed.error.flatten() }, { status: 400 });
     }
 
-    const { visitDate, name, email, phone } = parsed.data;
+    const { visitDate, guests, name, email, phone } = parsed.data;
 
     // tarif ditentukan SERVER dari tanggal (client tidak bisa menentukan harga)
     let tier;
@@ -50,7 +51,8 @@ export async function POST(req: Request) {
 
     const orderCode = makeOrderCode();
     const visitDateOnly = visitDate;
-    const totalAmount = tier.price;
+    const unitPrice = tier.price;
+    const totalAmount = unitPrice * guests;
 
     const conn = await pool.getConnection();
     try {
@@ -76,8 +78,8 @@ export async function POST(req: Request) {
       // 2) insert item
       await conn.execute(
         `INSERT INTO order_items (order_id, ticket_type_id, qty, unit_price, subtotal)
-         VALUES (?, ?, 1, ?, ?)`,
-        [orderId, ticket.id, totalAmount, totalAmount]
+        VALUES (?, ?, ?, ?, ?)`,
+        [orderId, ticket.id, guests, unitPrice, totalAmount]
       );
 
       // 3) buat baris payment PENDING — pembayaran QRIS mandiri, menunggu

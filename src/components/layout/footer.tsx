@@ -21,12 +21,12 @@ export function Footer() {
 
   return (
     <footer className="bg-[#1E3A63] text-slate-200">
-      <WaveDivider bg="#FDDDE8" wave="#1E3A63" />
+  <WaveDivider bg="hsl(var(--background))" wave="#1E3A63" />
       <div className="container py-12 px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center space-x-2 mb-4">
-              <Image src="/images/mascot/badut.png" alt="Sirkus Waterplay" width={40} height={40} className="object-contain rounded-full bg-white" />
+              <Image src="/images/icon.png" alt="Sirkus Waterplay" width={40} height={40} className="object-contain rounded-full bg-white" />
               <span className="text-xl font-bold font-headline text-white">Sirkus Waterplay</span>
             </Link>
             <p className="text-sm text-slate-400">
