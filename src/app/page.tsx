@@ -83,11 +83,11 @@ const bookingSteps = [
 // Taruh file logo di public/images/payment/ dengan nama sesuai `src` di bawah.
 // Kalau file belum ada, otomatis tampil teks nama sebagai pengganti.
 const paymentLogos = [
-  { name: 'BRI', src: '/images/payment/bri.png' },
-  { name: 'OVO', src: '/images/payment/ovo.png' },
-  { name: 'DANA', src: '/images/payment/dana.png' },
-  { name: 'GoPay', src: '/images/payment/gopay.png' },
-  { name: 'ShopeePay', src: '/images/payment/shopeepay.png' },
+  { name: 'BRI', src: '/images/payment/BRI.svg' },
+  { name: 'OVO', src: '/images/payment/OVO.svg' },
+  { name: 'DANA', src: '/images/payment/Dana.svg' },
+  { name: 'GoPay', src: '/images/payment/gopay.svg' },
+  { name: 'ShopeePay', src: '/images/payment/shopeepay.svg' },
 ];
 
 const facilitiesPreview = [
