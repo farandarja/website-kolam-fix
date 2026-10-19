@@ -1,5 +1,5 @@
 'use client';
-
+import { WaveSection } from "@/components/layout/wave-section";
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -117,7 +117,13 @@ function PaymentLogo({ name, src }: { name: string; src: string }) {
     </div>
   );
 }
-
+const facilities = [
+  { name: "Area Bermain Anak", icon: <Tent className="h-8 w-8" /> },
+  { name: "Kamar Bilas", icon: <ShowerHead className="h-8 w-8" /> },
+  { name: "Loker", icon: <Lock className="h-8 w-8" /> },
+  { name: "Food Court", icon: <UtensilsCrossed className="h-8 w-8" /> },
+  { name: "Area Parkir", icon: <Car className="h-8 w-8" /> },
+];
 export default function Home() {
   const heroImages = PlaceHolderImages.filter((img) => img.id.startsWith('hero'));
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -236,7 +242,7 @@ export default function Home() {
       </section>
 
             {/* ================= HARGA TIKET & CARA PESAN ================= */}
-      <section className="border-y border-[#132447]/5 bg-white py-14 md:py-20">
+     <section className="bg-white py-14 md:py-20">
         <div className="mx-auto max-w-5xl px-4">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
             {/* KIRI: harga */}
@@ -329,7 +335,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-
+ <WaveDivider wave="#FFFAF0" accent="#FFD6E6" size="sm" />
       {/* ================= WAHANA UNGGULAN ================= */}
       <section className="bg-background py-14 md:py-20">
         <div className="container mx-auto px-4">
@@ -413,38 +419,38 @@ export default function Home() {
         </div>
       </section>
 
-      <WaveDivider bg="hsl(var(--background))" wave="#CDEBFF" />
+            <WaveSection
+  id="fasilitas"
+  color="#FFF1A8"
+  accent="#CDEBFF"
+  className="pt-8 pb-12 md:pt-10 md:pb-14"
 
-      {/* ================= FASILITAS ================= */}
-      <section className="bg-[#FDDDE8] py-14 md:py-20">
+>
         <div className="container mx-auto px-4">
-          <h2 className="font-headline mb-10 flex items-center justify-center gap-3 text-center text-2xl font-extrabold text-[#132447] md:text-3xl">
-            <Star className="h-6 w-6 fill-accent text-accent" />
+          <h2 className="mb-12 flex items-center justify-center gap-3 text-center text-3xl font-headline font-bold md:text-4xl">
+            <Star className="h-6 w-6 fill-amber-400 text-amber-400" />
             Fasilitas Kami
-            <Star className="h-6 w-6 fill-accent text-accent" />
+            <Star className="h-6 w-6 fill-amber-400 text-amber-400" />
           </h2>
 
-          <div className="mx-auto grid max-w-5xl grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
-            {facilitiesPreview.map((f) => (
-              <div key={f.name} className="group flex flex-col items-center gap-4 text-center">
-                <div className="flex h-24 w-24 items-center justify-center rounded-full bg-white text-primary shadow-lg transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl md:h-28 md:w-28">
-                  {f.icon}
+          <div className="grid grid-cols-2 gap-8 text-center text-foreground sm:grid-cols-3 lg:grid-cols-5">
+            {facilities.map((facility) => (
+              <div key={facility.name} className="flex flex-col items-center gap-4">
+                <div className="rounded-full bg-white p-6 text-primary shadow-md">
+                  {facility.icon}
                 </div>
-                <p className="text-sm font-bold text-[#132447] md:text-base">{f.name}</p>
+                <p className="font-semibold">{facility.name}</p>
               </div>
             ))}
           </div>
 
-          <div className="mt-10 text-center">
-            <Button asChild className="rounded-full bg-primary font-accent font-bold hover:bg-primary/90">
+          <div className="mt-12 text-center">
+            <Button asChild className="rounded-full bg-primary font-bold hover:bg-primary/90">
               <Link href="/fasilitas">Selengkapnya</Link>
             </Button>
           </div>
         </div>
-      </section>
-
-      <WaveDivider bg="#CDEBFF" wave="hsl(var(--background))" flip />
-
+      </WaveSection>
       {/* ================= GALERI CANDID ================= */}
       <section className="bg-background pt-14 md:pt-20">
         <div className="container mx-auto px-4">
