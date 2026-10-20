@@ -1,4 +1,5 @@
 'use client';
+import { FacilityCards } from "@/components/facility-cards";
 import { WaveSection } from "@/components/layout/wave-section";
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
@@ -34,28 +35,6 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { WaveDivider } from '@/components/layout/wave-divider';
 import { TICKET_TIERS, formatRupiah } from '@/lib/ticket-pricing';
 
-const trustBadges = [
-  {
-    icon: <ShieldCheck className="h-7 w-7" />,
-    title: 'Aman & Nyaman',
-    desc: 'Kolam renang bersih dan terawat setiap hari',
-  },
-  {
-    icon: <Users className="h-7 w-7" />,
-    title: 'Cocok untuk Semua',
-    desc: 'Anak-anak, remaja hingga dewasa',
-  },
-  {
-    icon: <PartyPopper className="h-7 w-7" />,
-    title: 'Tema Sirkus Ceria',
-    desc: 'Suasana penuh warna dan menyenangkan',
-  },
-  {
-    icon: <Sparkles className="h-7 w-7" />,
-    title: 'Fasilitas Lengkap',
-    desc: 'Musala, loker, food court, spot foto dan banyak lagi',
-  },
-];
 
 const bookingSteps = [
   {
@@ -118,11 +97,36 @@ function PaymentLogo({ name, src }: { name: string; src: string }) {
   );
 }
 const facilities = [
-  { name: "Area Bermain Anak", icon: <Tent className="h-8 w-8" /> },
-  { name: "Kamar Bilas", icon: <ShowerHead className="h-8 w-8" /> },
-  { name: "Loker", icon: <Lock className="h-8 w-8" /> },
-  { name: "Food Court", icon: <UtensilsCrossed className="h-8 w-8" /> },
-  { name: "Area Parkir", icon: <Car className="h-8 w-8" /> },
+  {
+    name: "Area Bermain Anak",
+    desc: "Zona bermain khusus si kecil dengan lantai rubber yang aman dan nyaman.",
+    image: "/images/fasilitas/bermain-anak/1.png",
+    icon: <Tent className="h-5 w-5" />,
+  },
+  {
+    name: "Kamar Bilas",
+    desc: "Bilas dan ganti pakaian dengan bersih dan nyaman setelah berenang.",
+    image: "/images/fasilitas/kamar-bilas/1.png",
+    icon: <ShowerHead className="h-5 w-5" />,
+  },
+  {
+    name: "Loker",
+    desc: "Titip barang bawaan dengan aman, jadi bermain air bisa lebih tenang.",
+    image: "/images/fasilitas/loker/1.png",
+    icon: <Lock className="h-5 w-5" />,
+  },
+  {
+    name: "Food Court",
+    desc: "Isi tenaga setelah berenang, tersedia aneka makanan dan minuman.",
+    image: "/images/fasilitas/food-court/1.png",
+    icon: <UtensilsCrossed className="h-5 w-5" />,
+  },
+  {
+    name: "Area Parkir",
+    desc: "Parkir kendaraan mudah, jadi datang bersama keluarga makin praktis.",
+    // belum ada foto asli: nanti isi image: "/images/fasilitas/parkir/1.png"
+    icon: <Car className="h-5 w-5" />,
+  },
 ];
 export default function Home() {
   const heroImages = PlaceHolderImages.filter((img) => img.id.startsWith('hero'));
@@ -147,14 +151,14 @@ export default function Home() {
 
   return (
     <div className="flex flex-col overflow-x-clip">
-      {/* ================= HERO ================= */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#FFD8E4] via-[#BFE8FF] to-[#BFF3D0]">
+            {/* ================= HERO ================= */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#FFE9A8] via-[#BFE8FF] to-[#BFF3D0]">
         {/* candy stripe top border, seperti tenda sirkus */}
         <div
           className="h-3 md:h-4 w-full"
           style={{
             backgroundImage:
-              'repeating-linear-gradient(45deg, #FF4B7D 0 24px, #FFFFFF 24px 48px)',
+              'repeating-linear-gradient(45deg, #D62839 0 24px, #FFFFFF 24px 48px)',
           }}
         />
 
@@ -184,24 +188,14 @@ export default function Home() {
                     {char}
                   </span>
                 ))}
-                <span className="text-[#FF4B7D]">WATERPLAY</span>
+                <span className="text-[#D62839]">WATERPLAY</span>
               </span>
             </h1>
             <p className="font-body mx-auto mt-5 max-w-lg text-base font-semibold leading-relaxed text-[#132447]/80 lg:mx-0">
-              Indoor waterpark pertama di Indonesia dibangun tahun 2013 adalah tempat rekreasi yang sangat cocok untuk anak-anak. 
-              Didesain dengan konsep ala pertunjukan sirkus, Waterboom ini juga melindungi anak-anak dari kepanasan dan kehujanan, ada kolam air panas, lantai dari rubber yang safety dan nyaman. 
+              Indoor waterpark pertama di Indonesia dibangun tahun 2013 adalah tempat rekreasi yang sangat cocok untuk anak-anak.
+              Didesain dengan konsep ala pertunjukan sirkus, Waterboom ini juga melindungi anak-anak dari kepanasan dan kehujanan, ada kolam air panas, lantai dari rubber yang safety dan nyaman.
               Ada fasilitas sauna dan Mom n Baby Spa membuat Sirkus Waterplay menjadi tempat favorite bagi keluarga
             </p>
-            <div className="mt-6 flex flex-wrap justify-center gap-2 lg:justify-start">
-              {['♨️ Kolam air panas', '🧖 Sauna & Baby Spa', '🛡️ Lantai rubber aman'].map((c) => (
-                <span
-                  key={c}
-                  className="rounded-full bg-white/80 px-3 py-1.5 text-xs font-bold text-[#132447] shadow-sm md:text-sm"
-                >
-                  {c}
-                </span>
-              ))}
-            </div>
           </div>
 
           {/* RIGHT: hero image */}
@@ -218,25 +212,6 @@ export default function Home() {
                 />
               )}
             </div>
-          </div>
-        </div>
-
-        {/* ===== trust badges card, "floating" di bawah hero ===== */}
-        <div className="container relative z-20 mx-auto px-4 pb-10 md:-mb-16 md:pb-0">
-          <div className="mx-auto grid max-w-5xl grid-cols-2 gap-4 rounded-3xl bg-white p-6 shadow-xl md:grid-cols-4 md:gap-6 md:p-8">
-            {trustBadges.map((b) => (
-              <div key={b.title} className="flex flex-col items-center gap-2 text-center">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary text-primary">
-                  {b.icon}
-                </div>
-                <p className="font-accent text-sm font-bold text-[#132447]">
-                  {b.title}
-                </p>
-                <p className="text-xs leading-snug text-muted-foreground">
-                  {b.desc}
-                </p>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -335,7 +310,7 @@ export default function Home() {
           </div>
         </div>
       </section>
- <WaveDivider wave="#FFFAF0" accent="#FFD6E6" size="sm" />
+ <WaveDivider wave="#FFFAF0" accent="#FFE9A8" size="sm" />
       {/* ================= WAHANA UNGGULAN ================= */}
       <section className="bg-background py-14 md:py-20">
         <div className="container mx-auto px-4">
@@ -419,34 +394,30 @@ export default function Home() {
         </div>
       </section>
 
-            <WaveSection
-  id="fasilitas"
-  color="#fae789"
-  accent="#acdaf8"
-  className="pt-8 pb-12 md:pt-10 md:pb-14"
-
->
+              <WaveSection
+        id="fasilitas"
+        color="#FFF1A8"
+        accent="#CDEBFF"
+        className="pt-8 pb-12 md:pt-10 md:pb-14"
+      >
         <div className="container mx-auto px-4">
-          <h2 className="mb-12 flex items-center justify-center gap-3 text-center text-3xl font-headline font-bold md:text-4xl">
-            <Star className="h-6 w-6 fill-amber-400 text-amber-400" />
-            Fasilitas Kami
-            <Star className="h-6 w-6 fill-amber-400 text-amber-400" />
-          </h2>
-
-          <div className="grid grid-cols-2 gap-8 text-center text-foreground sm:grid-cols-3 lg:grid-cols-5">
-            {facilities.map((facility) => (
-              <div key={facility.name} className="flex flex-col items-center gap-4">
-                <div className="rounded-full bg-white p-6 text-primary shadow-md">
-                  {facility.icon}
-                </div>
-                <p className="font-semibold">{facility.name}</p>
-              </div>
-            ))}
+          <div className="mb-10 text-center">
+            <h2 className="flex items-center justify-center gap-3 text-3xl font-headline font-bold md:text-4xl">
+              <Star className="h-6 w-6 fill-amber-400 text-amber-400" />
+              Fasilitas Kami
+              <Star className="h-6 w-6 fill-amber-400 text-amber-400" />
+            </h2>
+            <p className="mx-auto mt-3 max-w-xl text-sm font-medium text-foreground/70 md:text-base">
+              Semua yang kamu butuhkan biar liburan seru dan nyaman, dari main
+              air sampai isi perut.
+            </p>
           </div>
 
-          <div className="mt-12 text-center">
+          <FacilityCards />
+
+          <div className="mt-10 text-center">
             <Button asChild className="rounded-full bg-primary font-bold hover:bg-primary/90">
-              <Link href="/fasilitas">Selengkapnya</Link>
+              <Link href="/fasilitas">Lihat Semua Fasilitas</Link>
             </Button>
           </div>
         </div>

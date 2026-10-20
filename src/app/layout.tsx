@@ -4,7 +4,6 @@ import { cn } from '@/lib/utils';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/toaster';
-import { SocialBar } from '@/components/layout/social-bar';
 import { SplashScreen } from '@/components/layout/splash-screen';
 import { MascotWidget } from '@/components/layout/mascot-widget';
 
@@ -44,7 +43,6 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
         </div>
-        <SocialBar />
         <MascotWidget />
         <Toaster />
       </body>

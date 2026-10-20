@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Instagram, MessageCircle } from "lucide-react";
+import { Instagram, MessageCircle, MapPin } from "lucide-react";
 import { TikTokIcon } from "@/components/icons/tiktok-icon";
 import Image from "next/image";
 import { WaveDivider } from "@/components/layout/wave-divider";
@@ -21,7 +21,7 @@ export function Footer() {
 
   return (
     <footer className="bg-[#1E3A63] text-slate-200">
-  <WaveDivider bg="hsl(var(--background))" wave="#1E3A63" />
+      <WaveDivider bg="hsl(var(--background))" wave="#1E3A63" />
       <div className="container py-12 px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-1">
@@ -75,6 +75,16 @@ export function Footer() {
                 </a>
               ))}
             </div>
+
+            <a
+              href="https://maps.app.goo.gl/YUb3HGWaUmKqd5x87"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-slate-200 transition-colors hover:bg-white hover:text-primary"
+            >
+              <MapPin className="h-4 w-4" />
+              Lihat di Google Maps
+            </a>
           </div>
         </div>
         <div className="mt-8 border-t border-white/10 pt-6 text-center text-sm text-slate-400">
