@@ -126,13 +126,13 @@ export default function Home() {
   return (
     <div className="flex flex-col overflow-x-clip">
             {/* ================= HERO ================= */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#FFD8E4] via-[#BFE8FF] to-[#BFF3D0]">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#FFE9A8] via-[#BFE8FF] to-[#BFF3D0]">
         {/* candy stripe top border, seperti tenda sirkus */}
         <div
           className="h-3 md:h-4 w-full"
           style={{
             backgroundImage:
-              'repeating-linear-gradient(45deg, #FF4B7D 0 24px, #FFFFFF 24px 48px)',
+              'repeating-linear-gradient(45deg, #D62839 0 24px, #FFFFFF 24px 48px)',
           }}
         />
 
@@ -162,7 +162,7 @@ export default function Home() {
                     {char}
                   </span>
                 ))}
-                <span className="text-[#FF4B7D]">WATERPLAY</span>
+                <span className="text-[#D62839]">WATERPLAY</span>
               </span>
             </h1>
             <p className="font-body mx-auto mt-5 max-w-lg text-base font-semibold leading-relaxed text-[#132447]/80 lg:mx-0">
@@ -284,7 +284,7 @@ export default function Home() {
           </div>
         </div>
       </section>
- <WaveDivider wave="#FFFAF0" accent="#FFD6E6" size="sm" />
+ <WaveDivider wave="#FFFAF0" accent="#FFE9A8" size="sm" />
       {/* ================= WAHANA UNGGULAN ================= */}
       <section className="bg-background py-14 md:py-20">
         <div className="container mx-auto px-4">
