@@ -34,28 +34,6 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { WaveDivider } from '@/components/layout/wave-divider';
 import { TICKET_TIERS, formatRupiah } from '@/lib/ticket-pricing';
 
-const trustBadges = [
-  {
-    icon: <ShieldCheck className="h-7 w-7" />,
-    title: 'Aman & Nyaman',
-    desc: 'Kolam renang bersih dan terawat setiap hari',
-  },
-  {
-    icon: <Users className="h-7 w-7" />,
-    title: 'Cocok untuk Semua',
-    desc: 'Anak-anak, remaja hingga dewasa',
-  },
-  {
-    icon: <PartyPopper className="h-7 w-7" />,
-    title: 'Tema Sirkus Ceria',
-    desc: 'Suasana penuh warna dan menyenangkan',
-  },
-  {
-    icon: <Sparkles className="h-7 w-7" />,
-    title: 'Fasilitas Lengkap',
-    desc: 'Musala, loker, food court, spot foto dan banyak lagi',
-  },
-];
 
 const bookingSteps = [
   {
@@ -147,7 +125,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col overflow-x-clip">
-      {/* ================= HERO ================= */}
+            {/* ================= HERO ================= */}
       <section className="relative overflow-hidden bg-gradient-to-br from-[#FFD8E4] via-[#BFE8FF] to-[#BFF3D0]">
         {/* candy stripe top border, seperti tenda sirkus */}
         <div
@@ -188,20 +166,10 @@ export default function Home() {
               </span>
             </h1>
             <p className="font-body mx-auto mt-5 max-w-lg text-base font-semibold leading-relaxed text-[#132447]/80 lg:mx-0">
-              Indoor waterpark pertama di Indonesia dibangun tahun 2013 adalah tempat rekreasi yang sangat cocok untuk anak-anak. 
-              Didesain dengan konsep ala pertunjukan sirkus, Waterboom ini juga melindungi anak-anak dari kepanasan dan kehujanan, ada kolam air panas, lantai dari rubber yang safety dan nyaman. 
+              Indoor waterpark pertama di Indonesia dibangun tahun 2013 adalah tempat rekreasi yang sangat cocok untuk anak-anak.
+              Didesain dengan konsep ala pertunjukan sirkus, Waterboom ini juga melindungi anak-anak dari kepanasan dan kehujanan, ada kolam air panas, lantai dari rubber yang safety dan nyaman.
               Ada fasilitas sauna dan Mom n Baby Spa membuat Sirkus Waterplay menjadi tempat favorite bagi keluarga
             </p>
-            <div className="mt-6 flex flex-wrap justify-center gap-2 lg:justify-start">
-              {['♨️ Kolam air panas', '🧖 Sauna & Baby Spa', '🛡️ Lantai rubber aman'].map((c) => (
-                <span
-                  key={c}
-                  className="rounded-full bg-white/80 px-3 py-1.5 text-xs font-bold text-[#132447] shadow-sm md:text-sm"
-                >
-                  {c}
-                </span>
-              ))}
-            </div>
           </div>
 
           {/* RIGHT: hero image */}
@@ -218,25 +186,6 @@ export default function Home() {
                 />
               )}
             </div>
-          </div>
-        </div>
-
-        {/* ===== trust badges card, "floating" di bawah hero ===== */}
-        <div className="container relative z-20 mx-auto px-4 pb-10 md:-mb-16 md:pb-0">
-          <div className="mx-auto grid max-w-5xl grid-cols-2 gap-4 rounded-3xl bg-white p-6 shadow-xl md:grid-cols-4 md:gap-6 md:p-8">
-            {trustBadges.map((b) => (
-              <div key={b.title} className="flex flex-col items-center gap-2 text-center">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary text-primary">
-                  {b.icon}
-                </div>
-                <p className="font-accent text-sm font-bold text-[#132447]">
-                  {b.title}
-                </p>
-                <p className="text-xs leading-snug text-muted-foreground">
-                  {b.desc}
-                </p>
-              </div>
-            ))}
           </div>
         </div>
       </section>
