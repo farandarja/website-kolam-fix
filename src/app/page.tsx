@@ -421,8 +421,8 @@ export default function Home() {
 
             <WaveSection
   id="fasilitas"
-  color="#FFF1A8"
-  accent="#CDEBFF"
+  color="#fae789"
+  accent="#acdaf8"
   className="pt-8 pb-12 md:pt-10 md:pb-14"
 
 >

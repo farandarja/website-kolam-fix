@@ -6,7 +6,6 @@ import Image from "next/image";
 const MASCOT_LINES = [
   "Halo! Yuk main air bareng aku! 🎈",
   "Jangan lupa pakai pelampung ya! 🛟",
-  "Tiket keluarga lagi hemat lho! 🎟️",
   "Kolam hangat cocok buat santai 🌊",
   "Follow sosmed kami buat info promo! 📣",
   "Air segeeer, ayo berenang! 💦",
