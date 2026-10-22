@@ -65,7 +65,7 @@ export function MascotWidget() {
         type="button"
         onClick={handleClick}
         aria-label="Maskot Sirkus Waterplay"
-        className={`h-24 w-24 md:h-28 md:w-28 cursor-pointer drop-shadow-xl transition-transform ${
+        className={`h-32 w-32 md:h-44 md:w-44 cursor-pointer drop-shadow-xl transition-transform ${
           excited ? "animate-mascot-bounce" : "animate-mascot-float"
         }`}
       >

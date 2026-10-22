@@ -98,43 +98,6 @@ export default function FasilitasPage() {
   return (
     <div className="bg-background">
       <div className="container mx-auto px-4 py-16 lg:py-24">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-headline font-bold mb-4">
-            Fasilitas & Tur Virtual
-          </h1>
-          <p className="max-w-3xl mx-auto text-lg text-muted-foreground">
-            Jelajahi setiap sudut Sirkus Waterplay dan temukan semua fasilitas
-            yang kami sediakan untuk kenyamanan liburan Anda.
-          </p>
-        </div>
-
-        {/* GALERI FOTO */}
-        <section id="virtual-tour" className="mb-20">
-          <h2 className="text-3xl font-headline font-bold mb-8 text-center">
-            Galeri Foto
-          </h2>
-          <Carousel className="w-full max-w-4xl mx-auto" opts={{ loop: true }}>
-            <CarouselContent>
-              {galleryImages.map((image) => (
-                <CarouselItem key={image.id}>
-                  <Card className="overflow-hidden">
-                    <CardContent className="p-0">
-                      <Image
-                        src={image.imageUrl}
-                        alt="Galeri Sirkus Waterplay"
-                        width={1200}
-                        height={700}
-                        className="object-cover aspect-[16/9] w-full"
-                      />
-                    </CardContent>
-                  </Card>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="ml-14" />
-            <CarouselNext className="mr-14" />
-          </Carousel>
-        </section>
 
         {/* FASILITAS PENDUKUNG */}
         <section id="fasilitas-pendukung">
