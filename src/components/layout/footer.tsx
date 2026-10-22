@@ -1,15 +1,14 @@
 import Link from "next/link";
-import { Instagram, MessageCircle, MapPin } from "lucide-react";
-import { TikTokIcon } from "@/components/icons/tiktok-icon";
+import { MapPin } from "lucide-react";
 import Image from "next/image";
 import { WaveDivider } from "@/components/layout/wave-divider";
 
 
 export function Footer() {
-  const socialLinks = [
-    { name: "Instagram", icon: <Instagram className="h-5 w-5" />, href: "https://instagram.com/sirkuswaterplay" },
-    { name: "TikTok", icon: <TikTokIcon className="h-5 w-5" />, href: "https://www.tiktok.com/@sirkuswaterplayjatiasih?_r=1&_t=ZS-93h0vWDXcUk" },
-    { name: "WhatsApp", icon: <MessageCircle className="h-5 w-5" />, href: "https://wa.me/628176988578" },
+    const socialLinks = [
+    { name: "Instagram", icon: "/images/social/instagram.svg", href: "https://instagram.com/sirkuswaterplay" },
+    { name: "TikTok", icon: "/images/social/tiktok.svg", href: "https://www.tiktok.com/@sirkuswaterplayjatiasih?_r=1&_t=ZS-93h0vWDXcUk" },
+    { name: "WhatsApp", icon: "/images/social/whatsapp.svg", href: "https://wa.me/628176988578" },
   ];
 
   const navLinks = [
@@ -63,15 +62,22 @@ export function Footer() {
             <h4 className="font-semibold font-accent mb-4 text-white">Ikuti Kami</h4>
             <div className="flex space-x-3">
               {socialLinks.map((social) => (
-                <a
+                                <a
                   key={social.name}
                   href={social.href}
                   aria-label={social.name}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 bg-white/10 rounded-full text-slate-200 hover:text-primary hover:bg-white transition-colors"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white transition-transform hover:scale-110"
                 >
-                  {social.icon}
+                  <Image
+                    src={social.icon}
+                    alt={social.name}
+                    width={24}
+                    height={24}
+                    unoptimized
+                    className="h-6 w-6 object-contain"
+                  />
                 </a>
               ))}
             </div>
